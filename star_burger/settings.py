@@ -1,11 +1,8 @@
 import os
 
 import dj_database_url
-
-from environs import Env
-
 import rollbar
-
+from environs import Env
 from git import Repo
 
 env = Env()
@@ -18,8 +15,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', True)
 API_YANDEX_TOKEN = env('API_YANDEX_TOKEN')
-ROLLBAR_TOKEN = env('ROLLBAR_TOKEN')
-ENVIRONMENT = env('ENVIRONMENT', default='development')
+ROLLBAR_TOKEN = env('ROLLBAR_TOKEN', default=None)
+ROLLBAR_ENVIRONMENT = env('ENVIRONMENT', default='local')
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['.localhost', '127.0.0.1', '[::1]'])
 
@@ -135,12 +132,13 @@ STATICFILES_DIRS = [
 PHONENUMBER_DB_FORMAT = "INTERNATIONAL"
 PHONENUMBER_DEFAULT_FORMAT = "INTERNATIONAL"
 
-local_repo = Repo(path=BASE_DIR)
-ROLLBAR = {
-    'access_token': ROLLBAR_TOKEN,
-    'environment': ENVIRONMENT,
-    'branch': local_repo.active_branch.name,
-    'root': BASE_DIR,
-}
+if ROLLBAR_TOKEN:
+    local_repo = Repo(path=BASE_DIR)
+    ROLLBAR = {
+        'access_token': ROLLBAR_TOKEN,
+        'environment': ROLLBAR_ENVIRONMENT,
+        'branch': local_repo.active_branch.name,
+        'root': BASE_DIR,
+    }
 
-rollbar.init(**ROLLBAR)
+    rollbar.init(**ROLLBAR)
