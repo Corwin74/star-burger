@@ -64,11 +64,10 @@ SECRET_KEY=django-insecure-0if40nf4nf93n4
 ```sh
 API_YANDEX_TOKEN=c2acd7d1-0cd9-94c8-abfc-44d88f59b182
 ```
-```
 Установите базу данных Postgres
 ```
 sudo apt-get install postgresql postgresql-contrib
-```
+```  
 Переключаемся на пользователя postgres
 ```sh
 sudo su - postgres
