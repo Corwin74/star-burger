@@ -120,7 +120,7 @@ class App extends Component {
   }
 
   async getBanners(){
-    let response = await fetch('/api/banners/', {
+    let response = await fetch('/api/v1/banners/', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

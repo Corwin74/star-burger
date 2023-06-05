@@ -3,7 +3,7 @@ from django.shortcuts import reverse, redirect
 from django.templatetags.static import static
 from django.utils.html import format_html
 
-from .models import Product
+from .models import Banner, Product
 from .models import ProductCategory
 from .models import Restaurant
 from .models import RestaurantMenuItem
@@ -16,6 +16,11 @@ from geocode.geo_cache_api import create_or_update_coordinates
 class RestaurantMenuItemInline(admin.TabularInline):
     model = RestaurantMenuItem
     extra = 0
+
+
+@admin.register(Banner)
+class BannerAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Restaurant)

@@ -226,3 +226,20 @@ class OrderLine(models.Model):
     class Meta:
         verbose_name = 'Позиция заказа'
         verbose_name_plural = 'Позиции заказа'
+
+
+class Banner(models.Model):
+    title = models.CharField(
+        'Название',
+        max_length=50
+    )
+    src = models.FileField(
+        'изображение',
+        upload_to='assets/',
+    )
+    text =  models.CharField(
+        'Описание',
+        max_length=120,
+        blank=True,
+        null=True,
+    )

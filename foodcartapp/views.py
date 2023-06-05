@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.templatetags.static import static
 from django.db import transaction
+from rest_framework import generics
 
 
 from rest_framework.decorators import api_view
@@ -9,7 +10,18 @@ from rest_framework.serializers import ModelSerializer
 
 from geocode.geo_cache_api import create_or_update_coordinates
 
-from .models import Order, OrderLine, Product
+from .models import Banner, Order, OrderLine, Product
+
+
+class BannerDeserializer(ModelSerializer):
+    class Meta:
+        model = Banner
+        fields = ['title', 'src', 'text']
+
+
+class BannerList(generics.ListAPIView):
+    queryset = Banner.objects.all()
+    serializer_class = BannerDeserializer
 
 
 def banners_list_api(request):
