@@ -20,7 +20,7 @@ class RestaurantMenuItemInline(admin.TabularInline):
 
 @admin.register(Banner)
 class BannerAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['title', 'text']
 
 
 @admin.register(Restaurant)
